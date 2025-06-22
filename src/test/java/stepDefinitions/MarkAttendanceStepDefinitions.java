@@ -26,7 +26,7 @@ public class MarkAttendanceStepDefinitions{
 	    
 	    
 
-	    passwordInput.sendKeys("yourPassword");
+	   
 
 	    driver.get("https://app.hrone.cloud/app");
 	    driver.findElement(By.xpath("//input[@id='hrone-username']")).sendKeys("9599017537");
