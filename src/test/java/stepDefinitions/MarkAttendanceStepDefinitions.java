@@ -23,10 +23,19 @@ public class MarkAttendanceStepDefinitions{
 	    driver=new ChromeDriver(options);
 	    
 	    driver.manage().window().maximize();
+	    
+	    
+
+	    passwordInput.sendKeys("yourPassword");
 
 	    driver.get("https://app.hrone.cloud/app");
 	    driver.findElement(By.xpath("//input[@id='hrone-username']")).sendKeys("9599017537");
 	    driver.findElement(By.xpath("//span[text()=' NEXT ']")).click();
+	    
+	    By ele= By.xpath("//input[@id='hrone-password']");
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement passwordInput = wait.until(ExpectedConditions.elementToBeClickable(ele));
+	    
 	    driver.findElement(By.xpath("//input[@id='hrone-password']")).sendKeys("Cricket@123");
 	    driver.findElement(By.xpath("//span[text()=' LOG IN ']")).click();
 	    
