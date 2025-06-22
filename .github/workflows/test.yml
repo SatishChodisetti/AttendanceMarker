@@ -31,9 +31,22 @@ jobs:
       - name: ✅ Run Tests
         run: mvn test
 
-      - name: 📦 Archive Test Reports (optional)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cucumber-reports
-          path: target/cucumber-report.html
+      - name: 📧 Send Test Report Email
+      if: always()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: Cucumber Test Report - ${{ github.repository }}
+        to: ${{ secrets.EMAIL_TO }}
+        from: ${{ secrets.EMAIL_FROM }}
+        content_type: text/html
+        body: |
+          Hello,<br><br>
+          Your scheduled test run on <strong>${{ github.repository }}</strong> has completed.<br><br>
+          Please find the attached Cucumber test report.<br><br>
+          Regards,<br>
+          GitHub Actions Bot
+        attachments: target/cucumber-report.html
