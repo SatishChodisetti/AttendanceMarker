@@ -1,8 +1,6 @@
 package stepDefinitions;
 
 import java.time.Duration;
-
-import com.aventstack.extentreports.reporter.ExtentReporter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
