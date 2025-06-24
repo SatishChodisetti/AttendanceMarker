@@ -25,11 +25,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: 🧭 Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
       - name: ⚙️ Build with Maven
         run: mvn clean compile
 
-      - name: ✅ Run Tests
-        run: mvn test
+      - name: ✅ Run Tests in Headless Mode
+        run: mvn test -Dheadless=true
 
       - name: 📧 Send Test Report Email
         if: always()
