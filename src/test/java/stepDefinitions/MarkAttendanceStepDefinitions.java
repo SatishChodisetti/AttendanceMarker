@@ -43,11 +43,12 @@ public class MarkAttendanceStepDefinitions{
 	   driver.findElement(By.xpath("//button[text()=' Mark attendance ']")).click();
 	}
 	@When("confirms attendance in the dialog")
-	public void confirms_attendance_in_the_dialog() {
+	public void confirms_attendance_in_the_dialog() throws InterruptedException {
 		By ele= By.xpath("//button[text()=' Cancel ']/..//following-sibling::button");
 		 Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(25));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 		driver.findElement(By.xpath("//button[text()=' Cancel ']/..//following-sibling::button")).click();
+		Thread.sleep(5000);
 	}
 	@Then("attendance should be marked successfully")
 	public void attendance_should_be_marked_successfully() {
