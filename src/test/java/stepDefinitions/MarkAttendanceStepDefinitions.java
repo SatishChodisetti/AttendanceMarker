@@ -18,7 +18,7 @@ public class MarkAttendanceStepDefinitions{
 	@Given("user logs into HR One portal")
 	public void user_logs_into_hr_one_portal() {
 	    ChromeOptions options=new ChromeOptions();
-	    options.addArguments("--headless=new","--disable-gpu","--window-size=1920,1080");
+	    options.addArguments("--headless=new","--disable-gpu","--window-size=1920,1080","--disable-blink-features=AutomationControlled");
 	    driver=new ChromeDriver(options);
 	    driver.manage().window().maximize();
 	    driver.get("https://app.hrone.cloud/app");
@@ -44,10 +44,10 @@ public class MarkAttendanceStepDefinitions{
 	}
 	@When("confirms attendance in the dialog")
 	public void confirms_attendance_in_the_dialog() throws InterruptedException {
-		By ele= By.xpath("//button[text()=' Cancel ']/..//following-sibling::button");
+		//By ele= By.xpath("//button[text()=' Cancel ']/..//following-sibling::button");
 		 Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(25));
-		wait.until(ExpectedConditions.elementToBeClickable(ele));
-		driver.findElement(By.xpath("//button[text()=' Cancel ']/..//following-sibling::button")).click();
+		 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()=' Cancel ']/..//following-sibling::button"))).click();
+		//driver.findElement(By.xpath("//button[text()=' Cancel ']/..//following-sibling::button")).click();
 		Thread.sleep(5000);
 	}
 	@Then("attendance should be marked successfully")
