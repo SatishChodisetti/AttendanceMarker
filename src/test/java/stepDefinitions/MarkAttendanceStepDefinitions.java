@@ -20,16 +20,9 @@ public class MarkAttendanceStepDefinitions{
 	@Given("user logs into HR One portal")
 	public void user_logs_into_hr_one_portal() {
 	    ChromeOptions options=new ChromeOptions();
-	    options.addArguments("--disable-gpu","--window-size=1920,1080");
+	    options.addArguments("--headless=new","--disable-gpu","--window-size=1920,1080");
 	    driver=new ChromeDriver(options);
-	    
 	    driver.manage().window().maximize();
-
-	    
-	    
-
-	   
-
 	    driver.get("https://app.hrone.cloud/app");
 	    driver.findElement(By.xpath("//input[@id='hrone-username']")).sendKeys("9599017537");
 	    driver.findElement(By.xpath("//span[text()=' NEXT ']")).click();
