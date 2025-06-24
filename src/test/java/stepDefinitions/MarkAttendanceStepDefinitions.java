@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import java.time.Duration;
 
+import com.aventstack.extentreports.reporter.ExtentReporter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,10 +20,11 @@ public class MarkAttendanceStepDefinitions{
 	@Given("user logs into HR One portal")
 	public void user_logs_into_hr_one_portal() {
 	    ChromeOptions options=new ChromeOptions();
-	    options.addArguments("--headless=new","--disable-gpu","--window-size=1920,1080");
+	    options.addArguments("--disable-gpu","--window-size=1920,1080");
 	    driver=new ChromeDriver(options);
 	    
 	    driver.manage().window().maximize();
+
 	    
 	    
 
@@ -51,10 +53,10 @@ public class MarkAttendanceStepDefinitions{
 	}
 	@When("confirms attendance in the dialog")
 	public void confirms_attendance_in_the_dialog() {
-		By ele= By.xpath("//button[text()=' Cancel ']");
+		By ele= By.xpath("//button[text()=' Cancel ']/..//following-sibling::button");
 		 Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(25));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
-		 driver.findElement(By.xpath("//button[text()=' Cancel ']")).click();
+		driver.findElement(By.xpath("//button[text()=' Cancel ']/..//following-sibling::button")).click();
 	}
 	@Then("attendance should be marked successfully")
 	public void attendance_should_be_marked_successfully() {
