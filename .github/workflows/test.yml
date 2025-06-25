@@ -34,6 +34,13 @@ jobs:
       - name: ✅ Run Tests in Headless Mode
         run: mvn test -Dheadless=true
 
+      - name: ⬆️ Upload Page Source Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: page-source
+          path: target/pageSource.html
+          retention-days: 5
+
       - name: 📧 Send Test Report Email
         if: always()
         uses: dawidd6/action-send-mail@v3
