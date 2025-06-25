@@ -34,6 +34,28 @@ jobs:
       - name: ✅ Run Tests in Headless Mode
         run: mvn test -Dheadless=true
 
+      - name:  📸 Capture Screenshot on Failure
+        if: failure()
+        run: |
+          # This command will vary based on how you want to capture the screenshot.
+          # For Selenium, you'd typically add this logic within your Java code
+          # to take a screenshot and save it to a known location (e.g., target/screenshots/).
+          # Then, you'd upload that directory as an artifact.
+          # For now, let's assume your Java code saves screenshots to target/screenshots/
+          mkdir -p target/screenshots
+          # You would need to add code to your Java test to actually take the screenshot here
+          # For example, in your @After method, if test fails, take screenshot
+          # Then this step would upload it.
+          echo "Placeholder for screenshot capture. Implement in Java code."
+
+      - name: ⬆️ Upload Screenshots on Failure
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: failure-screenshots
+          path: target/screenshots/
+          retention-days: 5
+
       - name: ⬆️ Upload Page Source Artifact
         uses: actions/upload-artifact@v4
         with:

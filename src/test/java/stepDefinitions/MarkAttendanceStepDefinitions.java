@@ -1,10 +1,14 @@
 package stepDefinitions;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import com.google.common.io.Files;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,6 +19,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import io.cucumber.java.en.*;
+import io.cucumber.java.After ;
+import io.cucumber.java.Scenario ;
 
 import static org.testng.Reporter.log;
 
@@ -122,7 +128,24 @@ public class MarkAttendanceStepDefinitions{
 	private void log(String message) {
 		System.out.println("error" + message);
 	}
+	@After
+	public void tearDown(Scenario scenario) {
+		if (scenario.isFailed()) {
+			File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			try {
+				String screenshotName = scenario.getName().replaceAll(" ", "_") + ".png";
+				File destFile = new File("target/screenshots/" + screenshotName);
+				Files.createParentDirs(destFile);
+				Files.copy(screenshot, destFile);
+				log("Screenshot saved to: " + destFile.getAbsolutePath());
+			} catch (IOException e) {
+				log("Failed to save screenshot: " + e.getMessage());
+			}
+		}
+		if (driver != null) {
+			driver.quit();
+		}
 
-
+	}
 
 }
