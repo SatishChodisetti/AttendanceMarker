@@ -1,5 +1,7 @@
 package stepDefinitions;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -87,6 +89,15 @@ public class MarkAttendanceStepDefinitions{
 			String text = btn.getText().trim();
 			log("Final button text: " + text);
 			assert text.equals("Mark attendance") : "Attendance may not be marked.";
+			// Capture page source
+			String pageSource = driver.getPageSource();
+			String filePath = "target/pageSource.html";
+			try (FileWriter fileWriter = new FileWriter(filePath)) {
+				fileWriter.write(pageSource);
+				log("Page source saved to: " + filePath);
+			} catch (IOException e) {
+				log("Failed to save page source: " + e.getMessage());
+			}
 		} catch (Exception e) {
 			log("Failed to verify attendance: " + e.getMessage());
 			throw new RuntimeException("Attendance failed", e);
