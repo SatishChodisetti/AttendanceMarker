@@ -29,19 +29,32 @@ public class MarkAttendanceStepDefinitions{
 	    driver=new ChromeDriver(options);
 
 	    driver.manage().window().maximize();
-		wait= new WebDriverWait(driver, Duration.ofSeconds(20));
+		wait= new WebDriverWait(driver, Duration.ofSeconds(30));
 	    driver.get("https://app.hrone.cloud/app");
-	    driver.findElement(By.xpath("//input[@id='hrone-username']")).sendKeys("9599017537");
-	    driver.findElement(By.xpath("//span[text()=' NEXT ']")).click();
-	    
+		log("Navigated to HR One: "+driver.getCurrentUrl());
+
+		// Wait for username field to be present and clickable
+		WebElement usernameInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("///input[@id='hrone-username']")));
+		usernameInput.sendKeys("9599017537");
+		log("Entered username.");
+
+		// Wait for NEXT button to be clickable and click it
+		WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()=' NEXT ']")));
+		nextButton.click();
+		log("Clicked NEXT button.");
 
 
-	    WebElement passwordInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='hrone-password']")));
+		// Wait for password field to be present and clickable
+		WebElement passwordInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='hrone-password']")));
 		passwordInput.sendKeys("Cricket@123");
-	    driver.findElement(By.xpath("//span[text()=' LOG IN ']")).click();
-		log("Login Successfull");
-	    
-	    
+		log("Entered password.");
+
+		// Wait for LOG IN button to be clickable and click it
+		WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()=' LOG IN ']")));
+		loginButton.click();
+		log("Clicked LOG IN button.");
+		log("Login process initiated. Current URL after login attempt: " + driver.getCurrentUrl());
+
 	}
 	@When("user clicks on Mark Attendance")
 	public void user_clicks_on_mark_attendance() {
