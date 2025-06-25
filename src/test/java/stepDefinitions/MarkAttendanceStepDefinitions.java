@@ -34,7 +34,7 @@ public class MarkAttendanceStepDefinitions{
 		log("Navigated to HR One: "+driver.getCurrentUrl());
 
 		// Wait for username field to be present and clickable
-		WebElement usernameInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("///input[@id='hrone-username']")));
+		WebElement usernameInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='hrone-username']")));
 		usernameInput.sendKeys("9599017537");
 		log("Entered username.");
 
